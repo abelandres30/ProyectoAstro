@@ -1,11 +1,30 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const variableEjemplo = 'Menu principal';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={variableEjemplo}>
+	<!-- <Welcome /> -->
+
+	<div > 
+		<h1 class="text-3xl text-blue-500">Mi primer proyecto con astro</h1>
+		<h6 class="text-blue-200">
+			Es un pequeño proyecto hecho con astro, que muestra algunos pokemones
+			y su informacion, es de prueba, esta un poco editado de como se quedo
+			en el curso con fernando herrera. 
+
+		</h6>
+		
+		<p id="TiempoLocal" style="color: white;"></p>
+	</div>
 </Layout>
+
+<script>
+	let timeToday = new Date().toLocaleTimeString();
+
+	let timeLocal = document.querySelector('#TiempoLocal') as HTMLElement;
+	timeLocal.innerHTML = 'Tiempo real: ' + timeToday;
+
+</script>

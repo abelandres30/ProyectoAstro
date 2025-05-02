@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import type { PokemonListResponse } from '../interfaces/pokemon-list';
+import PokemonCard from '../components/pokemons/pokemonCard.astro';
+
+const resp = await fetch('https://pokeapi.co/api/v2/pokemon');
+let data: PokemonListResponse;
+
+if(resp.ok) {
+	data = (await resp.json()) as PokemonListResponse;
+} else {
+	console.log('Error al cargar los pokemones');
+	data = {
+		count: 0,
+		next: 'null',
+		previous: null,
+		results: [],
+	};
+}
+
+---
+
+<Layout title="pokemon List">
+	<!-- <Welcome /> -->
+	<div>
+		<h5 class="text-blue-400">Listado de pokémons</h5>
+
+		<section style="overflow: auto; height: 80vh;"
+			aria-label="Pokémon List"
+			class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-6 pb-[15%]">
+			{
+				data.results.map((pokemon) => 	
+					<PokemonCard 
+						name={pokemon.name} 
+						url={pokemon.url} 
+					/>
+				)
+			}
+		</section>
+	</div>
+</Layout>
