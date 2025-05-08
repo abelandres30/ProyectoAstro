@@ -2,6 +2,8 @@
 import type { GetStaticPaths } from "astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list";
 
+import { Icon } from "astro-icon/components";
+
 import Layout from "../../layouts/Layout.astro";
 import PokemonCard from "../../components/pokemons/pokemonCard.astro";
 
@@ -27,20 +29,89 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 <Layout title={`Pokemon - #${id} ${name}`}
     description="pokemon description" 
     image={imageSrc}>
-    <section class="mt-10 mx-10 flex flex-col justify-center items-center">
-        <div> 
-            <a href="/pokemons/1" class="text-white">Regresar</a>
+    <section class="mt-0 mx-10 flex flex-col justify-center items-center">
+        <div class="flex flex-row gap-5">
+            <div > 
+                <button onclick="history.back()"  
+                    class="text-blue-500 cursor-pointer hover:text-blue-700 font-bold rounded focus:outline-none focus:shadow-outline">
+                    Regresar
+                </button>
+                <h3 class="text-white">
+                    {name}
+                </h3>
+            </div>
+
+            <button class="hover:animate-pulse mt-8" data-name={name} data-id={id} id="favorite" id="btn-favorite">
+                <Icon data-outline name="heart-outline" size={50}/>
+                <Icon data-full class="hidden" name="heart-full" size={50}/>
+            </button>
         </div>
+
 
         <PokemonCard 
             name={name} 
             url={url.toString()} 
         />
 
-        <audio controls class="mt-5">
+        <audio controls class="mt-0">
             <source src={audioSrc} type="audio/ogg" />
             Your browser does not support the audio element.
         </audio>
         
     </section>
 </Layout>
+
+<!-- SCRIPT DEL SITIO -->
+<script>
+
+    interface favoritePokemons {
+        name: string;
+        id: string;
+    }
+
+    const handlePageLoad = () => {
+        const btnFavorite = document.getElementById('favorite') as HTMLButtonElement;
+        if(!btnFavorite) return;
+
+        const name = btnFavorite.dataset.name as string;
+        const id = btnFavorite.dataset.id as string;
+
+        const heartOutline = btnFavorite.querySelector('[data-outline]') as HTMLElement;
+        const heartFull = btnFavorite.querySelector('[data-full]') as HTMLElement;
+
+        let favoritePokemons = JSON.parse(localStorage.getItem('favoritePokemons') || '[]') as favoritePokemons[];
+
+        let isFavorite = favoritePokemons.some((pokemon: favoritePokemons) => pokemon.name === name && pokemon.id === id);
+
+        if(isFavorite) {
+            heartOutline.classList.add('hidden');
+            heartFull.classList.remove('hidden');
+        } else {
+            heartOutline.classList.remove('hidden');
+            heartFull.classList.add('hidden');
+        }
+
+        btnFavorite.addEventListener('click', () => {
+            if (isFavorite) {
+                favoritePokemons = favoritePokemons.filter((pokemon: favoritePokemons) => pokemon.name !== name);
+                isFavorite = false;
+            } else {
+                favoritePokemons.push({ name, id });
+                isFavorite = true;
+            }
+
+            localStorage.setItem('favoritePokemons', JSON.stringify(favoritePokemons));
+            
+            heartOutline.classList.toggle('hidden');
+            heartFull.classList.toggle('hidden');
+        });
+    }
+
+    document.addEventListener('astro:page-load', handlePageLoad);
+    
+</script>
+
+<!-- STYLES DEL SITIO -->
+<style>
+    
+</style>

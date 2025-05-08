@@ -29,10 +29,10 @@ const { title, image, description } = Astro.props;
         <title>{title}</title>
         <ClientRouter />
 	</head>
-	<body class="bg-purple">
+	<body class="bg-purple" style={{overflow:'auto'}}>
 		<div class="stars">
 			<Navbar />
-			<div class="central-body">
+			<div class="central-body pt-[30%] sm:pt-[15%] md:pt-[12%] lg:pt-[6%]">
 				<slot />
 			</div>
 			
@@ -195,7 +195,7 @@ const { title, image, description } = Astro.props;
     }
 
     .central-body{
-        padding: 7% 5% 10% 5%;
+        /* padding: 9% 5% 10% 5%; */
         text-align: center;
     }
 
@@ -215,7 +215,7 @@ const { title, image, description } = Astro.props;
 
     .object_earth{
         position: absolute;
-        top: 15%;
+        top: 8%;
         left: 15%;
         z-index: 90;
     /*    animation: spin-earth 100s infinite linear both;*/
@@ -223,7 +223,7 @@ const { title, image, description } = Astro.props;
 
     .object_moon{
         position: absolute;
-        top: 12%;
+        top: 5%;
         left: 25%;
     /*
         transform: rotate(0deg);
@@ -310,15 +310,6 @@ const { title, image, description } = Astro.props;
         
         .central-body{
             /* padding-top: 25%; */
-        }
-    }
-
-     @media (max-width: 1200px) and (min-width: 600px) {
-        .central-body{
-            padding: 18% 4% 4% 4%;
-            margin-bottom: 10%;
-            padding-bottom: 10%;
-
         }
     }
 </style>

@@ -1,3 +1,14 @@
+---
+
+const Links = [
+    { name: 'Menu', path: '/' },
+    { name: 'Pokemons', path: '/pokemons/1' },
+    { name: 'Favoritos', path: '/favorites' },
+]
+
+const currentPath = Astro.url.pathname; 
+---
+
 <div class="custom-navbar">
     <div class="brand-logo">
         <!-- <img src="http://salehriaz.com/404Page/img/logo.svg" width="80px"> -->
@@ -5,8 +16,18 @@
     </div>
     <div class="navbar-links">
         <ul>
-            <li><a href="/">Menu principal</a></li>
-            <li><a href="/pokemons/1">Seccion pokemon</a></li>
+        {
+            Links.map(({name, path}) => (
+                <li>
+                    <a  href={path}>{name}</a>
+                    {
+                        path === currentPath && (
+                            <div transition:name="menu-line" class="border-b-2 border-blue-500" ></div>
+                        )
+                    }
+                </li>
+            ))
+        }
         </ul>
     </div>
 </div>
