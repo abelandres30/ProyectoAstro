@@ -12,5 +12,5 @@ export default defineConfig({
   },
 
   integrations: [icon(), solidJs(), mdx()],
-  site: 'https://example.com'
+  site: 'classy-klepon-2bf50f.netlify.app'
 });
