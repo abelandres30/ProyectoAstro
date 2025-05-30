@@ -12,5 +12,5 @@ export default defineConfig({
   },
 
   integrations: [icon(), solidJs(), mdx()],
-  site: 'https://example.com'
+  site: 'https://almada-blog.netlify.app/'
 });
