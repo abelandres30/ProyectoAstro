@@ -2,14 +2,20 @@
 import { ClientRouter } from 'astro:transitions';
 import Navbar  from '../components/Navbar.astro';
 import '../styles/global.css';
+import '../styles/blog.css';
 
 interface Props {
 	title: string; 
     image?: string;
     description?: string;
+    frontmatter?: {
+        [key: string]: any;
+    };
 }
 
-const { title, image, description } = Astro.props;
+const { title, image, description, ...rest } = Astro.props;
+const frontMatter = rest.frontmatter;
+
 ---
 
 <!doctype html>
@@ -26,7 +32,8 @@ const { title, image, description } = Astro.props;
         <meta name="og:image" content={image} />
         <meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-        <title>{title}</title>
+        <title>{title ? title : frontMatter?.title}</title>
+        
         <ClientRouter />
 	</head>
 	<body class="bg-purple" style={{overflow:'auto'}}>
@@ -63,6 +70,7 @@ const { title, image, description } = Astro.props;
 		margin: 0;
 		width: 100%;
 		height: 100%;
+        overflow: auto;
 	}
 
     @-moz-keyframes rocket-movement { 100% {-moz-transform: translate(1200px,-600px);} }

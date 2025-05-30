@@ -2,16 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import type { PokemonListResponse } from '../../interfaces/pokemon-list';
 import PokemonCard from '../../components/pokemons/pokemonCard.astro';
-import { Counter } from '../../components/Counter';
-
-interface favoritePokemons {
-    name: string;
-    id: number;
-}
-
-let favoritePokemons: favoritePokemons[] = [];
-
-// let favoritePokemons = JSON.parse(localStorage.getItem('favoritePokemons') || '[]') as favoritePokemons[];
+import { FavoritePokemons } from '../../components/pokemons/favoritePokemons';
 
 ---
 
@@ -19,8 +10,8 @@ let favoritePokemons: favoritePokemons[] = [];
 	
 	<!-- <Welcome /> -->
 	<div>
-		<h5 class="text-blue-400">pokémons favoritos</h5>
-		<Counter client:load/>
-
+		<h5 class="text-blue-400">Favoritos</h5>
+	
+		<FavoritePokemons client:only/>
 	</div>
 </Layout>

@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { PokemonListResponse } from '../../interfaces/pokemon-list';
+import PokemonCard from '../../components/pokemons/pokemonCard.astro';
+import { Counter } from '../../components/Counter';
+
+interface favoritePokemons {
+    name: string;
+    id: number;
+}
+
+let favoritePokemons: favoritePokemons[] = [{name:'pikachu', id:1}];
+---
+
+<Layout title="pokemon List">
+	
+	<!-- <Welcome /> -->
+	<div>
+		<h5 class="text-blue-400">Islas</h5>
+		
+		<div class="mx-auto w-full justify-center flex flex-wrap">
+			<video controls transition:persist="playing-video">
+				<source
+					src="https://ia804502.us.archive.org/33/items/GoldenGa1939_3/GoldenGa1939_3_512kb.mp4"
+					type="video/mp4"
+				/>
+			</video>
+		</div>
+		
+
+		<Counter transition:persist="counter" transition:persist-props 
+			client:load initValue={favoritePokemons.length}
+		/>
+
+	</div>
+</Layout>

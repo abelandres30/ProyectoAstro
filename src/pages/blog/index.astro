@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/blog.css';
+import { getCollection } from 'astro:content';
+import TypedBlogPost from 'src/components/blog/TypedBlogPost.astro';
+
+// const posts = await Astro.glob('./posts/*.{md,mdx}')
+
+const blogPosts = await getCollection('blog', (post) => post.data.isDraft === false); 
+
+---
+
+<Layout title="pokemon List">
+	
+	<!-- <Welcome /> -->
+	<div>
+		<h5 class="text-blue-400">Andres´s Blog</h5>
+
+		<a class="mt-2" href="/blog/1" class="mt-5 underline">Blog paginado</a>
+		<a class="mt-2" href="/blog/authors" class="mt-5 underline">Autores</a>
+	
+		<!-- component -->
+		<section >
+			<div class="container mx-auto">
+				<div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+					{
+						blogPosts.map((post) => <TypedBlogPost post={post} /> )
+					}
+				</div>
+			</div>
+		</section>
+	</div>
+</Layout>

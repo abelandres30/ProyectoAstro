@@ -55,26 +55,6 @@ main {
   padding: 3em 1em;
 }
 
-h1 {
-  font-size: 3.052em;
-}
-
-h2 {
-  font-size: 2.441em;
-}
-
-h3 {
-  font-size: 1.953em;
-}
-
-h4 {
-  font-size: 1.563em;
-}
-
-h5 {
-  font-size: 1.25em;
-}
-
 strong,
 b {
   font-weight: 700;
@@ -101,11 +81,11 @@ table {
   width: 100%;
 }
 
-img {
+/* img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-}
+} */
 
 code {
   padding: 2px 5px;

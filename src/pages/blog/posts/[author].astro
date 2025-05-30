@@ -1,0 +1,74 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { siteConfig } from 'src/config/site-config';
+import Layout from "src/layouts/Layout.astro";
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import TypedBlogPost from 'src/components/blog/TypedBlogPost.astro';
+
+export const getStaticPaths = (async () => {
+  //  const authors = await getCollection('author')
+  //  const posts =  await getCollection('blog')
+  const [authors, posts] = await Promise.all([
+    getCollection('author'),
+    getCollection('blog'),
+  ]);
+
+  return authors.map((author) => ({
+    params: { author: author.id },
+    props: {
+      blogPosts: posts.filter((post) => post.data.author.id === author.id),
+      author: author.data,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { blogPosts, author } = Astro.props;
+---
+
+<Layout title='Listado de posts por autor'>
+    <section>
+        <div class="mx-auto">
+            <h5 class="text-blue-400">Andres´s Blog</h5>
+
+            <a href="/blog" id="btn-back">
+                <button  
+                    class="text-blue-500 cursor-pointer hover:text-blue-700 font-bold rounded focus:outline-none focus:shadow-outline">
+                    Regresar
+                </button>
+            </a>
+
+            <div class="text-md text-gray-400 mb-0 flex flex-row mt-2">
+                <Image
+                    src={author.avatar}
+                    alt={author.name}
+                    width={100}
+                    height={70}
+                    class="rounded-full"
+                />
+    
+                <div class="flex flex-col ml-5">
+                    <a>{author.name}</a>
+                    <span>Listado de todos mis posts</span>
+                  </div>
+    
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 mt-4 md:mt-10 md:grid-cols-2">
+                {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style is:global>
+    a {
+        color: #3B82F6;            /* text-blue-500 */
+        text-decoration: none;
+        transition: text-decoration 0.2s ease;
+    }
+
+    a:hover {
+        text-decoration: underline; /* hover:underline */
+    }
+</style>

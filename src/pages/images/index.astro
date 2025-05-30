@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+
+import post05 from '@images/post-05.png';
+---
+
+<Layout title="Imagenes">
+	
+	<!-- <Welcome /> -->
+	<div>
+		<h5 class="text-blue-400">Imagenes</h5>
+		<!-- component -->
+        <img 
+            loading="eager" 
+            src="/assets/images/post-05.png" 
+            alt="" 
+            width="250" 
+            height="250"
+        >
+
+        <Image alt="ejemplo" src={post05} width="250" height="250"/>
+        <Image alt="ejemplo" style={{width:'250px', height:'250px'}} src={post05} width="500" height="500"/>
+        
+         
+        <h1>Quality Low</h1>
+
+        <Image quality={'low'} alt="ejemplo" src={post05} width="250" height="250"/>
+	
+    </div>
+</Layout>
+
+<style>
+    h1 {
+        color:white
+    }
+</style>

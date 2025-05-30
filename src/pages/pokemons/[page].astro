@@ -5,7 +5,7 @@ import type { PokemonListResponse } from '../../interfaces/pokemon-list';
 import PokemonCard from '../../components/pokemons/pokemonCard.astro';
 
 export const getStaticPaths = (async ({paginate}) => {
-	const resp = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+	const resp = await fetch('https://pokeapi.co/api/v2/pokemon?limit=200');
 	let data: PokemonListResponse;
 
 	if(resp.ok) {
