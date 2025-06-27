@@ -32,7 +32,16 @@ const frontMatter = rest.frontmatter;
         <meta name="og:image" content={image} />
         <meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Andres blog"
+            href={new URL("rss.xml", Astro.site+'/blog')}
+        />
+
         <title>{title ? title : frontMatter?.title}</title>
+
+        
         
         <ClientRouter />
 	</head>
